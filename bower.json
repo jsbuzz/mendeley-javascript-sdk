@@ -2,6 +2,10 @@
   "name": "mendeley-javascript-sdk",
   "version": "0.1.0",
   "description": "Mendeley API client-side JavaScript SDK",
+  "repository": {
+      "type": "git",
+      "url": "git://github.com/Mendeley/mendeley-javascript-sdk"
+  },
   "moduleType": [
     "amd",
     "globals"
