@@ -162,7 +162,7 @@ All contributions should be made by pull request (even if you have commit rights
 
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 
-Add unit tests for any new or changed functionality. Tests use karma and jasmine and can be run with `npm tests`. If you make changes please check coverage reports under `/coverage` to make sure you're new code is covered by your tests.
+Add unit tests for any new or changed functionality. Tests use karma and jasmine and can be run with `npm tests`. If you make changes please check coverage reports under `/coverage` to make sure you haven't left any new code untested.
 
 Please note the aim of this SDK is to connect to the existing Mendeley API, not to add to that API. For more information about the API and to give any feedback please visit [the Mendeley developers site].
 
