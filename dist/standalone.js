@@ -602,6 +602,16 @@
             update: requestWithDataFun('PATCH', '/folders/{id}', ['id'], dataHeaders.folder, true),
 
             /**
+             * Delete a folder
+             *
+             * @method
+             * @memberof api.folders
+             * @param {string} id - A folder UUID
+             * @returns {promise}
+             */
+            delete: requestFun('DELETE', '/folders/{id}', ['id']),
+
+            /**
              * Remove a document from a folder
              *
              * @method

@@ -132,6 +132,7 @@ The default example setup uses the implicit grant flow. To use this copy `exampl
 
 Go to http://localhost:8111/examples/ in your browser and you should be redirected to log-in to Mendeley. Once logged in you'll be redirected back to the examples.
 
+
 ### Example Using Authorization Code Flow
 
 There is also some example nodejs code for using the authorization code flow.
@@ -162,7 +163,10 @@ All contributions should be made by pull request (even if you have commit rights
 
 In lieu of a formal styleguide, take care to maintain the existing coding style.
 
-Add unit tests for any new or changed functionality. Tests use karma and jasmine and can be run with `npm tests`. If you make changes please check coverage reports under `/coverage` to make sure you haven't left any new code untested.
+Please add unit tests for any new or changed functionality. Tests use karma and jasmine, run them with:
+    $ npm test
+
+If you make changes please check coverage reports under `/coverage` to make sure you haven't left any new code untested.
 
 Please note the aim of this SDK is to connect to the existing Mendeley API, not to add to that API. For more information about the API and to give any feedback please visit [the Mendeley developers site].
 
