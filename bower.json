@@ -1,0 +1,30 @@
+{
+  "name": "mendeley-javascript-sdk",
+  "version": "0.0.0",
+  "description": "Mendeley API client-side JavaScript SDK",
+  "moduleType": [
+    "amd",
+    "globals"
+  ],
+  "keywords": [
+    "mendeley",
+    "api",
+    "sdk"
+  ],
+  "dependencies": {
+    "jquery": "~1.11.0"
+  },
+  "license": "Apache-2.0",
+  "homepage": "http://dev.mendeley.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "bin",
+    "tests"
+  ],
+  "devDependencies": {
+    "es5-shim": "~4.0.3"
+  }
+}
