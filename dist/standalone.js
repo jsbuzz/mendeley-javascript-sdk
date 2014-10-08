@@ -438,6 +438,7 @@
         var listDocuments = requestFun('GET', '/documents/');
         var listFolder = requestFun('GET', '/folders/{id}/documents', ['id']);
         return {
+
             /**
              * Create a new document
              *
@@ -447,6 +448,16 @@
              * @returns {promise}
              */
             create: requestWithDataFun('POST', '/documents', false, dataHeaders, true),
+
+            /**
+             * Create a new document from a file
+             *
+             * @method
+             * @memberof api.documents
+             * @param {object} file - A file object
+             * @returns {promise}
+             */
+            createFromFile: requestWithFileFun('POST', '/documents'),
 
             /**
              * Retrieve a document
@@ -708,6 +719,7 @@
      * @name api.files
      */
     function files() {
+
         return {
             /**
              * Create a new file
@@ -719,16 +731,6 @@
              * @returns {promise}
              */
             create: requestWithFileFun('POST', '/files'),
-
-            /**
-             * Create a new document from a file
-             *
-             * @method
-             * @memberof api.files
-             * @param {object} file - A file object
-             * @returns {promise}
-             */
-            createDocument: requestWithFileFun('POST', '/document-from-file'),
 
             /**
              * Get a list of files for a document
