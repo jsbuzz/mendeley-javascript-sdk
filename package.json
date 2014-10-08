@@ -9,7 +9,7 @@
     "test": "node_modules/karma/bin/karma start",
     "start": "node examples/app.js",
     "build-jsdoc": "node_modules/.bin/jsdoc -d docs/ lib/api.js",
-    "build-dist": "node bin/build.js > dist/standalone.js",
+    "build-dist": "node bin/build.js > dist/standalone.js && git commit --allow-empty -m'Update standalone build'",
     "release-patch": "npm run build-dist && ./node_modules/.bin/mversion patch --no-prefix -m 'Released patch version v%s'",
     "release-minor": "npm run build-dist && ./node_modules/.bin/mversion minor --no-prefix -m 'Released minor version v%s'",
     "release-major": "npm run build-dist && ./node_modules/.bin/mversion major --no-prefix -m 'Released major version v%s'"
