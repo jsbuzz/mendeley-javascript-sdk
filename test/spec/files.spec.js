@@ -23,7 +23,6 @@ define(function(require) {
             return new Blob([content], { type: type });
         }
 
-
         describe('create method', function() {
 
             // Mock ajax to resolve successfully

@@ -4,6 +4,16 @@ define(function(require) {
 
     require('es5-shim');
 
+    // Helper for getting a file blob in phantom vs. others
+    function getBlob(content, type) {
+        if (typeof window.WebKitBlobBuilder !== 'undefined') {
+            var builder = new window.WebKitBlobBuilder();
+            builder.append(content);
+            return builder.getBlob(type);
+        }
+        return new Blob([content], { type: type });
+    }
+
     describe('documents api', function() {
 
         var api = require('api');
@@ -29,6 +39,12 @@ define(function(require) {
 
         var mockPromiseRetrieve = $.Deferred().resolve({ id: '15', title: 'foo' }, 1, {
             status: 200,
+            getResponseHeader: getResponseHeaderLocation,
+            getAllResponseHeaders: getAllResponseHeaders
+        }).promise();
+
+        var mockPromiseCreateFromFile = $.Deferred().resolve({ id: '15', title: 'foo' }, 1, {
+            status: 201,
             getResponseHeader: getResponseHeaderLocation,
             getAllResponseHeaders: getAllResponseHeaders
         }).promise();
@@ -129,6 +145,55 @@ define(function(require) {
                 documentsApi.create({ title: 'foo' }).fail(function(request, response) {
                     expect(request.type).toEqual('POST');
                     expect(response).toEqual({ status: 404 });
+                });
+            });
+        });
+
+        describe('createFromFile method', function() {
+
+            var ajaxSpy;
+            var apiRequest;
+            var ajaxRequest;
+            var file = getBlob('hello', 'text/plain');
+            file.name = '中文file name(1).pdf';
+
+            it('should be defined', function() {
+                expect(typeof documentsApi.createFromFile).toBe('function');
+                ajaxSpy = spyOn($, 'ajax').and.callFake(getMockPromises(mockPromiseCreateFromFile));
+                apiRequest = documentsApi.createFromFile(file);
+                expect(ajaxSpy).toHaveBeenCalled();
+                ajaxRequest = ajaxSpy.calls.first().args[0];
+            });
+
+            it('should use POST', function() {
+                expect(ajaxRequest.type).toBe('POST');
+            });
+
+            it('should use endpoint /documents', function() {
+                expect(ajaxRequest.url).toBe(baseUrl + '/documents');
+            });
+
+            it('should have a Content-Type header the same as the file', function() {
+                expect(ajaxRequest.headers['Content-Type']).toBeDefined();
+                expect(ajaxRequest.headers['Content-Type']).toEqual('text/plain');
+            });
+
+            it('should have a Content-Disposition header based on file name', function() {
+                expect(ajaxRequest.headers['Content-Disposition']).toEqual('attachment; filename*=UTF-8\'\'%E4%B8%AD%E6%96%87file%20name%281%29.pdf');
+            });
+
+            it('should have an Authorization header', function() {
+                expect(ajaxRequest.headers.Authorization).toBeDefined();
+                expect(ajaxRequest.headers.Authorization).toBe('Bearer auth');
+            });
+
+            it('should have a body of the file contents', function() {
+                expect(ajaxRequest.data).toEqual(file);
+            });
+
+            it('should resolve with the response', function() {
+                apiRequest.done(function(data) {
+                    expect(data).toEqual({ id: '15', title: 'foo' });
                 });
             });
         });
